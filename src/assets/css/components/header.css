@@ -1,0 +1,49 @@
+.header-section{
+    background-color: blueviolet;
+    height: auto;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.logo{
+    font-size: 25px;
+    align-self: center;
+    font-weight: 900;
+}
+
+ul{
+    height: 100%;
+    display: flex;
+    flex-direction:row;
+    align-items: center;
+    gap: 10px;
+
+}
+
+.navbar{
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+
+.navbar__btn{
+    display: flex;
+    flex-direction:row;
+    justify-content: center;
+    width: 100px;
+    padding: 5px;
+    border: 1px grey solid;
+    border-radius: 10%;
+}
+
+.navbar__btn.active{
+    background-color: grey;
+
+}
+
+a:hover{
+    background-color: grey;
+}

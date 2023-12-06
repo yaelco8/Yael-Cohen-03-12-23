@@ -1,0 +1,8 @@
+@import "basics/base.css";
+/*pages*/
+@import "pages/homepage.css";
+/*components*/
+@import "components/layout.css";
+@import "components/header.css";
+@import "components/searchCity.css";
+@import "components/forecasts.css";

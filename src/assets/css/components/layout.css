@@ -1,0 +1,6 @@
+.page-container{
+    background-color: red;
+    /* height: calc(100vh - 20px); */
+    height: 98vh;
+    margin:0;
+}
