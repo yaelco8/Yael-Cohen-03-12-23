@@ -1,18 +1,52 @@
 import axios, { AxiosResponse } from "axios"
 import { weatherService } from "./weather.service"
-import {upCity} from "../model/city"
+import { upCity, City } from "../model/city"
 import { AllForecasts } from "../model/forecasts"
-
+import store from "../store"
+import { loadFromStorage, saveToStorage } from "./local.storage.service"
+import { convrtF } from "./util.service"
 
 export const cityService = {
     getCity,
     getForecasts,
-    getWeather
+    getWeather,
+    setSaveCity,
+    setRemoveFromFavorite,
+    checkIfFavorite
 }
 
+async function setSaveCity(city: City) {
+    try {
+        const citiesState = store.getState().cities
+        const actCities = citiesState.cities
+        console.log("actCities",actCities);
+        
+        if (actCities.length === 0) {
+            const cities: City[] = []
+            cities.push(city)
+            saveToStorage('favorites', JSON.stringify(cities))
+        } else {
+            const newCities = actCities.push(city)
+            saveToStorage('favorites', JSON.stringify(newCities))
+        }
+        return Promise.resolve({ status: true })
+    } catch (err) {
+        throw new Error('Something got wrong.Try again later')
+    }
+}
 
+async function setRemoveFromFavorite(id: string) {
+    try {
+        const favoriteStorage = loadFromStorage('favorites')
+        const favorites = JSON.parse(favoriteStorage)
+        const newFavorites = favorites.filter((favorite: City) => favorite._id !== id)
+        saveToStorage('favorites', JSON.stringify(newFavorites))
+        return Promise.resolve({ status: true })
+    } catch (er) {
+        throw new Error('Something got wrong.Try again later')
 
-
+    }
+}
 
 async function getCity(filterBy: string) {
     try {
@@ -26,7 +60,7 @@ async function getCity(filterBy: string) {
                 weatherText: '',
                 icon: '',
                 temp: {},
-                isFavorite:false
+                isFavorite: false
             }
             return upCity
         })
@@ -47,7 +81,7 @@ async function getForecasts(id = '215854') {
         const forecastsDays = res5Day.DailyForecasts.map((currDays: any) => {
             let day = {
                 date: currDays.Date,
-                temp: _convrtF(currDays.Temperature.Maximum.Value),
+                temp: convrtF(currDays.Temperature.Maximum.Value),
                 icon: currDays.Day.Icon,
                 iconPhrase: currDays.Day.IconPhrase
             }
@@ -72,9 +106,12 @@ async function getWeather(currCity: any) {
     return currCity
 }
 
-const _convrtF = (f: number) => {
-    const res = (f - 32) * 5 / 9
-    return res.toFixed(0)
+function checkIfFavorite() {
+    const allFavorites = loadFromStorage('favorites')
+    if (!allFavorites) return null
+    const favorites = JSON.parse(allFavorites)
+    const isInFavorites = favorites.find((favorite: City) => favorite._id === '215854')
+    return isInFavorites
 }
 
 const _getForecastsFromApi = async (cityKey = '215854') => {

@@ -1,6 +1,10 @@
 .page-container{
     /* background-color: red; */
     /* height: calc(100vh - 20px); */
+    /* display: flex; */
+    /* flex-direction: column; */
+    /* justify-content: space-between; */
+    position: relative;
     background-image: url("../../imgs/clouds-background.jfif");
     background-repeat: no-repeat;
     background-size: cover;
@@ -9,5 +13,7 @@
 }
 
 .animation{
-    
+    position: absolute;
+    top: 67vh;
+    right:0;
 }

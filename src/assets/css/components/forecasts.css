@@ -49,7 +49,7 @@ justify-self: flex-start;
     background-color: transparent;
     width: 100%;
     display: flex;
-    flex-wrap: wrap;
+    /* flex-wrap: wrap; */
     justify-content: space-between;
     padding: 1rem;
     border-radius: 0 0 10px 10px;

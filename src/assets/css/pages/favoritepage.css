@@ -1,0 +1,37 @@
+.favorite-section{
+    display: flex;
+    flex-wrap: wrap;
+    position: absolute;
+    top:25vh;
+    left: 25vw;
+    width: 60%;
+    font-size: 20px;
+    padding: 0.5rem;
+}
+
+.favorite-box{
+    width: 10rem;
+    height: 14rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    border: 0.1rem black solid;
+    border-radius: 8px;
+    padding: 0.5rem;
+}
+
+.trashIcon{
+    align-self: flex-end;
+    margin: 0.2rem;
+    cursor: pointer;
+}
+
+.cityName{
+    font-weight: 700;
+}
+
+img{
+    width: 8rem;
+    height: 5rem;
+}

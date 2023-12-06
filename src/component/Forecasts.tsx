@@ -5,10 +5,9 @@ import { useState, useEffect } from "react";
 import { City } from "../model/city"
 import { AllForecasts, Fives } from "../model/forecasts";
 import { cityService } from "../services/city.service";
-import { cutFavorite, saveCity, saveForecasts } from "../store/cities/cities-action";
+import { cutFavorite, saveCity } from "../store/cities/cities-action";
 import weatherImg from "../constants/weatherImg";
-import { PopupType } from "../component/PopUps"
-import { popOn } from "../store/global/global-action";
+
 
 
 type forcastsProps = {
@@ -31,9 +30,14 @@ const Forcasts = ({ currCity }: forcastsProps) => {
   }, [currCity])
 
   const onInit = async () => {
-    const defCity = await cityService.getCity('tel aviv')
-    const defCityWeather = await cityService.getWeather(defCity[0])
-    setCity(defCityWeather)
+    const inFavorites = cityService.checkIfFavorite()
+    if (!inFavorites) {
+      const defCity = await cityService.getCity('tel aviv')
+      const defCityWeather = await cityService.getWeather(defCity[0])
+      setCity(defCityWeather)
+    } else {
+      setCity(inFavorites)
+    }
     bringForecasts('215854')
   }
 
@@ -47,16 +51,13 @@ const Forcasts = ({ currCity }: forcastsProps) => {
     city.isFavorite = true
     setCity(city)
     saveCity(dispatch, city)
-    saveForecasts(dispatch, forecasts)
-    popOn(dispatch, { type: PopupType.Success, content: 'City added to Favorite page' })
   }
 
   const deleteFavorite = (city: City | undefined) => {
     if (!city) return
     city.isFavorite = false
     setCity(city)
-    if (city) cutFavorite(dispatch, city._id)
-    else return
+    cutFavorite(dispatch, city._id)
   }
 
   const getSpecDay = (numDate: string) => {
@@ -65,7 +66,6 @@ const Forcasts = ({ currCity }: forcastsProps) => {
     const dayOfWeek = daysOfWeek[date.getDay()];
     return dayOfWeek
   }
-  console.log("forecasts", forecasts);
 
   return (
     <section className="forcasts-container">
@@ -75,7 +75,7 @@ const Forcasts = ({ currCity }: forcastsProps) => {
           <div className="today-weather">
             <img src={`${(weatherImg as any)['img' + city.icon]}`} className="item-a" />
             <p className="item-b">{city.localCity}</p>
-            <p className="item-c">{city.temp.Metric.Value}{city.temp.Metric.Unit}</p>
+            <p className="item-c">{city.temp.Metric.Value.toFixed(0) + `\u00B0`}{city.temp.Metric.Unit}</p>
           </div>
           <div className="favorite">
             {city.isFavorite ?
@@ -85,7 +85,7 @@ const Forcasts = ({ currCity }: forcastsProps) => {
           </div>
         </div>
       }
-      
+
       <div className="forecasts-down">
         {forecasts.length > 0 &&
           forecasts[0].fiveDays.map((forecast: Fives) => (
