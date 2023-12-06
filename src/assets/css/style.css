@@ -1,6 +1,9 @@
 @import "basics/base.css";
+
 /*pages*/
 @import "pages/homepage.css";
+@import "pages/favoritepage.css";
+
 /*components*/
 @import "components/layout.css";
 @import "components/header.css";

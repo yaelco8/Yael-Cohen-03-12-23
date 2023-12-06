@@ -1,9 +1,9 @@
 .forcasts-container{
     display: flex;
     flex-direction: column;
-    width: 80%;
+    width: 60%;
     font-size: 18px;
-    box-shadow: -5px 0px 6px 0px rgba(69,64,64,0.7);
+    box-shadow: 2px 2px 4px 6px rgba(118, 116, 116, 0.7);
 }
 
 .forecasts-up{
@@ -14,12 +14,12 @@
     padding: 1rem;
     height: 15rem;
     border-radius: 10px 10px 0 0;
-    
 }
 
 .heart{
     width: 2rem;
     height:2rem ;
+    cursor: pointer;
 }
 
 .today-weather{
@@ -53,8 +53,6 @@ justify-self: flex-start;
     justify-content: space-between;
     padding: 1rem;
     border-radius: 0 0 10px 10px;
-    box-shadow: -5px 6px 6px 0px rgba(69,64,64,0.7);
-    /* padding-top: 2rem; */
 }
 
 .forecasts-box{

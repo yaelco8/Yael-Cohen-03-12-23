@@ -78,7 +78,7 @@ const Forcasts = ({ currCity }: forcastsProps) => {
             <p className="item-c">{city.temp.Metric.Value}{city.temp.Metric.Unit}</p>
           </div>
           <div className="favorite">
-            {!city.isFavorite ?
+            {city.isFavorite ?
               <GoHeartFill onClick={() => deleteFavorite(city)} className="heart" /> :
               <GoHeart onClick={() => addFavorite(city, forecasts)} className="heart" />
             }
