@@ -1,6 +1,9 @@
 .page-container{
-    background-color: red;
+    /* background-color: red; */
     /* height: calc(100vh - 20px); */
-    height: 98vh;
+    background-image: url("../../imgs/clouds-background.jfif");
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh;
     margin:0;
 }

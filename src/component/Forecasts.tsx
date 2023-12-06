@@ -10,6 +10,7 @@ import weatherImg from "../constants/weatherImg";
 import { PopupType } from "../component/PopUps"
 import { popOn } from "../store/global/global-action";
 
+
 type forcastsProps = {
   currCity: City | undefined
 }
@@ -42,8 +43,8 @@ const Forcasts = ({ currCity }: forcastsProps) => {
   }
 
   const addFavorite = (city: City | undefined, forecasts: AllForecasts[]) => {
-    if(!city)return
-    city.isFavorite=true
+    if (!city) return
+    city.isFavorite = true
     setCity(city)
     saveCity(dispatch, city)
     saveForecasts(dispatch, forecasts)
@@ -51,8 +52,8 @@ const Forcasts = ({ currCity }: forcastsProps) => {
   }
 
   const deleteFavorite = (city: City | undefined) => {
-    if(!city)return
-    city.isFavorite=false
+    if (!city) return
+    city.isFavorite = false
     setCity(city)
     if (city) cutFavorite(dispatch, city._id)
     else return
@@ -68,21 +69,23 @@ const Forcasts = ({ currCity }: forcastsProps) => {
 
   return (
     <section className="forcasts-container">
-        {city &&
-      <div className="forecasts-up">
+      {city &&
+        <div className="forecasts-up">
+
           <div className="today-weather">
             <img src={`${(weatherImg as any)['img' + city.icon]}`} className="item-a" />
             <p className="item-b">{city.localCity}</p>
             <p className="item-c">{city.temp.Metric.Value}{city.temp.Metric.Unit}</p>
           </div>
-        <div className="favorite">
-          {!city.isFavorite ?
-            <GoHeartFill onClick={() => deleteFavorite(city)} /> :
-            <GoHeart onClick={() => addFavorite(city, forecasts)} />
-          }
+          <div className="favorite">
+            {!city.isFavorite ?
+              <GoHeartFill onClick={() => deleteFavorite(city)} className="heart" /> :
+              <GoHeart onClick={() => addFavorite(city, forecasts)} className="heart" />
+            }
+          </div>
         </div>
-      </div>
-          }
+      }
+      
       <div className="forecasts-down">
         {forecasts.length > 0 &&
           forecasts[0].fiveDays.map((forecast: Fives) => (
