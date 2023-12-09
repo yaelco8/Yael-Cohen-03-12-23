@@ -1,6 +1,7 @@
 .favorite-section{
     display: flex;
     flex-wrap: wrap;
+    gap: 1rem;
     position: absolute;
     top:25vh;
     left: 25vw;
@@ -19,6 +20,7 @@
     border: 0.1rem black solid;
     border-radius: 8px;
     padding: 0.5rem;
+    cursor: pointer;
 }
 
 .trashIcon{

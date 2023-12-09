@@ -1,5 +1,5 @@
 import { AppDispatch } from "../store";
-import {Message, setPop} from "./global-slice"
+import {Message,  setPop} from "./global-slice"
 
 export const popOn=(dispatch:AppDispatch,message:Message|undefined)=>{
     try {

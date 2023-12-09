@@ -1,4 +1,4 @@
-import { useAppDispatch } from "../store/store"
+import { RootState, useAppDispatch } from "../store/store"
 import { GoHeart } from "react-icons/go";
 import { GoHeartFill } from "react-icons/go";
 import { useState, useEffect } from "react";
@@ -7,8 +7,7 @@ import { AllForecasts, Fives } from "../model/forecasts";
 import { cityService } from "../services/city.service";
 import { cutFavorite, saveCity } from "../store/cities/cities-action";
 import weatherImg from "../constants/weatherImg";
-
-
+import { useSelector } from "react-redux";
 
 type forcastsProps = {
   currCity: City | undefined
@@ -17,6 +16,7 @@ type forcastsProps = {
 const Forcasts = ({ currCity }: forcastsProps) => {
   const [city, setCity] = useState<City>()
   const [forecasts, setForecasts] = useState<Array<AllForecasts>>([])
+  const { cityToShow } = useSelector((state: RootState) => state.cities)
   const dispatch = useAppDispatch()
 
   useEffect(() => {
@@ -30,13 +30,18 @@ const Forcasts = ({ currCity }: forcastsProps) => {
   }, [currCity])
 
   const onInit = async () => {
-    const inFavorites = cityService.checkIfFavorite()
-    if (!inFavorites) {
-      const defCity = await cityService.getCity('tel aviv')
-      const defCityWeather = await cityService.getWeather(defCity[0])
-      setCity(defCityWeather)
+    if (cityToShow) {
+      setCity(cityToShow)
     } else {
-      setCity(inFavorites)
+      const inFavorites = cityService.checkIfFavorite()
+      if (!inFavorites) {
+        const defCity = await cityService.getCity('tel aviv')
+        const defCityWeather = await cityService.getWeather(defCity[0])
+        setCity(defCityWeather)
+      } else {
+        setCity(inFavorites)
+      }
+
     }
     bringForecasts('215854')
   }
@@ -90,9 +95,9 @@ const Forcasts = ({ currCity }: forcastsProps) => {
         {forecasts.length > 0 &&
           forecasts[0].fiveDays.map((forecast: Fives) => (
             <div className="forecasts-box" key={forecast.date}>
-              <div>{getSpecDay(forecast.date)}</div>
-              <div>{forecast.temp + `\u00B0`}C</div>
-              <img src={`${(weatherImg as any)['img' + forecast.icon]}`} className="item-a" />
+              <div className="text">{getSpecDay(forecast.date)}</div>
+              <div className="text">{forecast.temp + `\u00B0`}C</div>
+              <img src={`${(weatherImg as any)['img' + forecast.icon]}`}/>
             </div>
           ))
         }

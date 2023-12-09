@@ -13,7 +13,7 @@
     font-weight: 900;
 }
 
-ul{
+.navbar-links{
     height: 100%;
     display: flex;
     flex-direction:row;
@@ -23,6 +23,8 @@ ul{
 }
 
 .navbar{
+    display: flex;
+    flex-direction: row;
     align-items: center;
     justify-content: space-between;
 }
@@ -46,4 +48,31 @@ ul{
 
 a:hover{
     background-color: grey;
+}
+
+.menu-icon{
+    width: 2rem;
+    height: 2rem;
+    position: relative;
+}
+
+.links-menu{
+    position: absolute;
+    right: 1rem;
+    width: 10rem;
+    height: 6rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    background-color: rgb(200,200,235);
+
+}
+
+.pages-link{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 100%;
+    gap: 0.2rem;
+    padding: 0.2rem;
 }

@@ -1,29 +1,28 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import {PopupType} from "../../component/PopUps"
+import { PopupType } from "../../component/PopUps"
 
-export type Message={
-    type:PopupType,
-    content:string
+export type Message = {
+    type: PopupType,
+    content: string
 }
 type globalInitialState = {
-    message:Message|undefined,
+    message: Message | undefined,
+    isF: boolean
 }
 
 const initialState: globalInitialState = {
-    message:{
-        type:PopupType.Success,
-        content:''
-    },
+    message: undefined,
+    isF: false
 }
 
-const globalSlice=createSlice({
+const globalSlice = createSlice({
     name: "global",
     initialState,
-    reducers:{
-        setPop(state,action: PayloadAction<Message|undefined>){
-            state.message=action.payload
-            
-        }
+    reducers: {
+        setPop(state, action: PayloadAction<Message | undefined>) {
+            state.message = action.payload
+
+        },
     }
 })
 

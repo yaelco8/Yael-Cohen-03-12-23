@@ -1,3 +1,7 @@
+form{
+    position: relative;
+}
+
 .input{
     width: 400px;
    height: 40px;
@@ -7,4 +11,33 @@
 
 .input::placeholder{
     padding-left: 10px;
+}
+
+.cityOption{
+    /* position: absolute; */
+    width: 400px;
+   height: 40px;
+   background-color: white;
+   padding: 0.5rem;
+   margin-top: 0.05rem;
+   cursor: pointer;
+   z-index: 10;
+}
+
+.cityOption:first-of-type{
+    border-radius: 10px 10px 0 0;
+}
+
+.cityOption:last-of-type{
+    border-radius: 0 0 10px 10px ;
+}
+
+@media screen and (max-width:420px){
+    .input{
+        width: 80vw;
+    }
+    .cityOption{
+        width: 80vw;
+    }
+
 }

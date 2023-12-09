@@ -1,5 +1,5 @@
 import { AppDispatch } from "../store"
-import { setCity, removeFavorite } from "../cities/cities-slice"
+import { setCity, removeFavorite,showCity } from "../cities/cities-slice"
 import { City } from "../../model/city"
 import { cityService } from "../../services/city.service"
 import { setPop } from "../global/global-slice"
@@ -27,4 +27,8 @@ export const cutFavorite = async(dispatch: AppDispatch, id: string) => {
         dispatch(setPop({ type: PopupType.Error, content: 'Something got wrong.Try again later' }))
         throw err
     }
+}
+
+export const cityToShow=(dispatch: AppDispatch,city:City)=>{
+    dispatch(showCity(city))
 }

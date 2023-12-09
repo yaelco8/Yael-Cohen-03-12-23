@@ -1,17 +1,18 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { loadFromStorage, saveToStorage } from "../../services/local.storage.service";
 import { City } from "../../model/city"
-import { Forecasts, AllForecasts } from "../../model/forecasts"
+import { Forecasts } from "../../model/forecasts"
 
 
 type citiesInitialState = {
     cities: City[],
     forecasts: Forecasts[],
+    cityToShow: City | null
 }
 
 const initialState: citiesInitialState = {
     cities: [],
     forecasts: [],
+    cityToShow: null
 }
 
 const citiesSlice = createSlice({
@@ -22,7 +23,10 @@ const citiesSlice = createSlice({
             state.cities.push(action.payload)
         },
         removeFavorite(state, action: PayloadAction<string>) {
-            state.cities.filter((city: any) => city._id === action.payload)
+            state.cities=state.cities.filter((city: City) => city._id !== action.payload)
+        },
+        showCity(state, action: PayloadAction<City>) {
+            state.cityToShow = action.payload
         }
     },
 });
@@ -30,6 +34,7 @@ const citiesSlice = createSlice({
 export const {
     setCity,
     removeFavorite,
+    showCity
 } = citiesSlice.actions;
 
 export default citiesSlice.reducer;

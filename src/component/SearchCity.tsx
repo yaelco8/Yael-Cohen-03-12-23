@@ -37,7 +37,7 @@ const SearchCity = ({ handleCitySelect }: SearchCityProps) => {
                 <input onChange={(ev) => onChange(ev)} type="text" placeholder="Search city" className="input" />
                 {city !== '' && cities.length > 1 && (
                     cities.map(city => (
-                        <div key={city._id} onClick={()=>handleKeySelect(city)}>{city.localCity}</div>
+                        <div key={city._id} onClick={()=>handleKeySelect(city)} className="cityOption">{city.localCity}</div>
                     ))
 
                 )}

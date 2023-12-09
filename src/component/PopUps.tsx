@@ -14,10 +14,13 @@ const PopUps = () => {
     const dispatch = useAppDispatch()
 
     useEffect(() => {
-        setTimeout(() => {
+        if (!message) return
+        const id = setTimeout(() => {
             popOn(dispatch, undefined)
         }, 1000)
-    }, [])
+        return () => clearTimeout(id)
+    }, [message])
+
     const IconElement = useCallback(() => {
         if (!message) return null
         switch (message.type) {
@@ -29,11 +32,12 @@ const PopUps = () => {
     }, [message])
     if (!message) return null
     return (
-
-        <div className='popup'>
-            <IconElement />
-            {message.content}
-        </div>
+        <section className='popup-section'>
+            <div className='popup'>
+                <IconElement />
+                {message.content}
+            </div>
+        </section>
     )
 }
 

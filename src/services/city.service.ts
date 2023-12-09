@@ -12,23 +12,15 @@ export const cityService = {
     getWeather,
     setSaveCity,
     setRemoveFromFavorite,
-    checkIfFavorite
+    checkIfFavorite,
 }
 
 async function setSaveCity(city: City) {
     try {
         const citiesState = store.getState().cities
-        const actCities = citiesState.cities
-        console.log("actCities",actCities);
-        
-        if (actCities.length === 0) {
-            const cities: City[] = []
-            cities.push(city)
-            saveToStorage('favorites', JSON.stringify(cities))
-        } else {
-            const newCities = actCities.push(city)
-            saveToStorage('favorites', JSON.stringify(newCities))
-        }
+        const actCities = [...citiesState.cities]
+        actCities.push(city)
+        saveToStorage('favorites', JSON.stringify(actCities))
         return Promise.resolve({ status: true })
     } catch (err) {
         throw new Error('Something got wrong.Try again later')
@@ -117,9 +109,7 @@ function checkIfFavorite() {
 const _getForecastsFromApi = async (cityKey = '215854') => {
     try {
         const query = `http://dataservice.accuweather.com/forecasts/v1/daily/5day/${cityKey}?apikey=`
-        // const query=`${process.env.FORECASTS}${cityKey}?apikey=`
         const res: AxiosResponse = await axios.get(query + 'mxzUeOCWgXMUM2QrrafubuC2W6dfwRXa')
-        // const res:AxiosResponse= await axios.get(query+process.env.API_KEY)
         return res.data
     } catch (err) {
         throw err
@@ -130,7 +120,6 @@ const _getCityFromApi = async (city = 'tel aviv') => {
     try {
         const query = `apikey=mxzUeOCWgXMUM2QrrafubuC2W6dfwRXa&q=${city}`
         const res: AxiosResponse = await axios.get('http://dataservice.accuweather.com/locations/v1/cities/autocomplete?' + query)
-        // const res:AxiosResponse= await axios.get(process.env.LOCATION_AUTOCOMPLETE+query)
         return res.data
     } catch (err) {
         throw err
