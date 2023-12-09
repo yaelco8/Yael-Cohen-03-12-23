@@ -108,7 +108,7 @@ function checkIfFavorite() {
 
 const _getForecastsFromApi = async (cityKey = '215854') => {
     try {
-        const query = `http://dataservice.accuweather.com/forecasts/v1/daily/5day/${cityKey}?apikey=`
+        const query = `https://dataservice.accuweather.com/forecasts/v1/daily/5day/${cityKey}?apikey=`
         const res: AxiosResponse = await axios.get(query + 'mxzUeOCWgXMUM2QrrafubuC2W6dfwRXa')
         return res.data
     } catch (err) {
@@ -119,7 +119,7 @@ const _getForecastsFromApi = async (cityKey = '215854') => {
 const _getCityFromApi = async (city = 'tel aviv') => {
     try {
         const query = `apikey=mxzUeOCWgXMUM2QrrafubuC2W6dfwRXa&q=${city}`
-        const res: AxiosResponse = await axios.get('http://dataservice.accuweather.com/locations/v1/cities/autocomplete?' + query)
+        const res: AxiosResponse = await axios.get('https://dataservice.accuweather.com/locations/v1/cities/autocomplete?' + query)
         return res.data
     } catch (err) {
         throw err

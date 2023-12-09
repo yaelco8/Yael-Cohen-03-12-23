@@ -25,7 +25,7 @@ async function getCityWeather(key: string) {
 
 const _getWeather = async (weatherKey = '215854') => {
     try {
-        const query = `http://dataservice.accuweather.com/currentconditions/v1/${weatherKey}?apikey=mxzUeOCWgXMUM2QrrafubuC2W6dfwRXa`
+        const query = `https://dataservice.accuweather.com/currentconditions/v1/${weatherKey}?apikey=mxzUeOCWgXMUM2QrrafubuC2W6dfwRXa`
         const res: AxiosResponse = await axios.get(query)
         return res.data
     } catch (error) {
